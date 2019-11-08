@@ -5,17 +5,21 @@ class BinaryTree {
 
 	// Construcotors
 	public BinaryTree(Container item, BinaryTree leftTree, BinaryTree rightTree) {
-		this(leftTree, rightTree);
+		this.leftTree = leftTree;
+		this.rightTree = rightTree;
 		this.item = item;
 	}
 
 	public BinaryTree(BinaryTree leftTree, BinaryTree rightTree) {
-		this.leftTree = leftTree;
-		this.rightTree = rightTree;
+		this(null, leftTree, rightTree);
+	}
+
+	public BinaryTree(Container item) {
+		this(item, null, null);
 	}
 
 	public BinaryTree() {
-		this(null, null);
+		this(null, null, null);
 	}
 
 	// Methods
