@@ -1,20 +1,20 @@
 SRC := $(wildcard *.java)
 CLASS-FILES := $(patsubst %.java, %.class, $(SRC))
 
-.PHONY: clean-all clean-classes
+.PHONY: jar clean-all clean-classes
 
-build: $(CLASS-FILES) Evaluator.jar clean-classes
+build: $(CLASS-FILES) jar clean-classes
 
-%.jar:
-	jar cfe $@ MathClient $(CLASS-FILES)
-	chmod +x $@
+jar:
+	jar cfe Evaluator.jar MathClient $(CLASS-FILES)
+	chmod +x Evaluator.jar
 
 %.class: %.java
 	javac $<
 
 
 run:
-	java -jar Evaluator.jar
+	java -jar Evaluator.jar ${ARGS}
 
 
 clean-all: clean-classes
