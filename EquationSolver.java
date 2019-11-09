@@ -36,7 +36,7 @@ class EquationSolver {
 				eTreeStorage.push(new BinaryTree(c));
 			} else if (!c.element.matches("[()]")) { // operator
 				while (!eShuntingLine.empty()) {
-					if (eShuntingLine.peek().equals("(")) {
+					if (eShuntingLine.peek().element.equals("(")) {
 						break;
 					} else if (moveOperator(eShuntingLine.peek(), c)) {
 						BinaryTree rightTree = eTreeStorage.pop();
@@ -47,11 +47,11 @@ class EquationSolver {
 				}
 				eShuntingLine.push(c);
 			} else { // paranthesis
-				if (c.equals("(")) {
+				if (c.element.equals("(")) {
 					eShuntingLine.push(c);
 				} else {
 					while (!eShuntingLine.empty()) {
-						if (!eShuntingLine.peek().equals("(")) {
+						if (!eShuntingLine.peek().element.equals("(")) {
 							BinaryTree rightTree = eTreeStorage.pop();
 							eTreeStorage.push(new BinaryTree(eShuntingLine.pop(), eTreeStorage.pop(), rightTree));
 						} else {
@@ -73,7 +73,7 @@ class EquationSolver {
 	int precedence(Container c) {
 		if (c.element.matches("[+-]")) { return 2; }
 		if (c.element.matches("[*/]")) { return 3; }
-		if (c.element.matches("[^]")) { return 4; }
+		if (c.element.matches("[\\^]")) { return 4; }
 		System.out.println("==> ERROR? " + c.element);
 		return 0;
 	}
