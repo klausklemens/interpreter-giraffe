@@ -3,7 +3,9 @@ CLASS-FILES := $(patsubst %.java, %.class, $(SRC))
 
 .PHONY: jar clean-all clean-classes
 
-build: $(CLASS-FILES) jar clean-classes
+build: compile jar clean-classes
+
+compile: $(CLASS-FILES)
 
 jar:
 	jar cfe Evaluator.jar MathClient $(CLASS-FILES)
