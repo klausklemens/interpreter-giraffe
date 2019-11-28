@@ -5,6 +5,8 @@ CLASS-FILES := $(patsubst %.java, %.class, $(SRC))
 
 build: compile jar clean-classes
 
+all: build run
+
 compile: $(CLASS-FILES)
 
 jar:
@@ -12,7 +14,7 @@ jar:
 	chmod +x Evaluator.jar
 
 %.class: %.java
-	javac $<
+	javac -g $<
 
 
 run:
