@@ -5,13 +5,13 @@ class NfaRunner {
 	private Queue<Integer> state;
 	private Transition[] transitions; // TODO: Make array of transitions originating from a specific state to speed up
 
-	private int target;
+	private int[] finalStates;
 
-	public NfaRunner(Transition[] transitions, int initialState, int finalState) {
+	public NfaRunner(Transition[] transitions, int initialState, int[] finalStates) {
 		this.transitions = transitions;
 		this.state = new LinkedList<>();
 		this.state.offer(initialState);
-		this.target = finalState;
+		this.finalStates = finalStates;
 	}
 
 	public boolean validate(String input) {
@@ -19,9 +19,9 @@ class NfaRunner {
 			Queue<Integer> newState = new LinkedList<>();
 			while (!state.isEmpty()) {
 				int checkState = state.poll();
-				for (int t = 0; t < transitions.length; t++) {
-					if (checkState == transitions[t].from && transitions[t].matches(input.charAt(i))) {
-						newState.offer(transitions[t].to);
+				for (Transition t : transitions) {
+					if (checkState == t.from && t.matches(input.charAt(i))) {
+						newState.offer(t.to);
 					}
 				}
 			}
@@ -32,8 +32,11 @@ class NfaRunner {
 		}
 
 		while (!state.isEmpty()) {
-			if (state.poll() == target) {
-				return true;
+			int endState = state.poll();
+			for (int finalState : this.finalStates) {
+				if (endState == finalState) {
+					return true;
+				}
 			}
 		}
 		return false;
