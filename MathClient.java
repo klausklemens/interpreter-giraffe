@@ -1,11 +1,12 @@
 class MathClient {
 	public static void main(String[] args) {
 		EquationSolver input = new EquationSolver();
-		int FS = 255;
+		int FS = 5;
 		Transition[] t = {
 				new Transition(0, 0, "0123456789", true),
 				new Transition(0, 1, "0"),
-				new Transition(1, FS, "x"),
+				new Transition(1, 2, "x"),
+				new Transition(2, FS, "0123456789"),
 				new Transition(0, FS, "0123456789"),
 				new Transition(FS, FS, "0123456789"),
 		};
